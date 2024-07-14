@@ -9,7 +9,6 @@ import usePlayer from "@/hooks/usePlayer";
 import Player from "@/components/Player/Player";
 import Bottom from "@/components/Bottom/Bottom";
 import CopySection from "@/components/CopySection/CopySection";
-// import { useRouter } from "next/navigation";
 
 interface PlayerProps {
   url: MediaStream;
