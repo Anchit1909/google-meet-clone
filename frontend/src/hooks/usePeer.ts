@@ -1,14 +1,14 @@
 "use client";
 
 import { useSocket } from "@/context/socket";
-import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { Peer } from "peerjs";
+import { useParams } from "next/navigation";
 
 const usePeer = () => {
+  const params = useParams<{ roomId: string }>();
   const socket = useSocket();
-  const router = useRouter();
-  const roomId = router.query.roomId as string;
+  const roomId = params.roomId as string;
   const [peer, setPeer] = useState<Peer | null>(null);
   const [myId, setMyId] = useState<string>("");
   const isPeerSet = useRef<boolean>(false);
