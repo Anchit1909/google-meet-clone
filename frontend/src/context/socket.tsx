@@ -31,7 +31,7 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const connection = new (io as any)("http://localhost:3001", {
+    const connection = new (io as any)("http://142.93.219.125:3001", {
       withCredentials: true,
       extraHeaders: {
         "my-custom-header": "abcd",
