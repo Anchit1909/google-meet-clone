@@ -2,12 +2,14 @@ import express, { Request, Response, NextFunction } from "express";
 import http from "http";
 import { Server, Socket } from "socket.io";
 import cors from "cors";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://142.93.219.125:3000",
+    origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true,
