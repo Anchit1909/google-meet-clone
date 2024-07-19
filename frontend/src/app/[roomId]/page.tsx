@@ -9,6 +9,7 @@ import usePlayer from "@/hooks/usePlayer";
 import Player from "@/components/Player/Player";
 import Bottom from "@/components/Bottom/Bottom";
 import CopySection from "@/components/CopySection/CopySection";
+import Header from "@/components/Navigation/Header";
 
 interface PlayerProps {
   url: MediaStream;
@@ -160,7 +161,7 @@ const Room = ({ params }: { params: { roomId: string } }) => {
 
   return (
     <>
-      <div className="absolute w-9/12 left-0 right-0 mx-auto top-5 bottom-12 h-[calc(100vh-7rem)]">
+      <div className="absolute w-9/12 left-0 right-0 mx-auto top-20 bottom-12 h-[calc(100vh-10rem)]">
         {playerHighlighted && (
           <Player
             url={playerHighlighted?.url}
@@ -170,7 +171,7 @@ const Room = ({ params }: { params: { roomId: string } }) => {
           />
         )}
       </div>
-      <div className="absolute flex flex-col overflow-y-auto w-[200px] h-[calc(100vh-20px)] right-5 top-5">
+      <div className="absolute flex flex-col overflow-y-auto w-[200px] h-[calc(100vh-20px)] right-5 top-20">
         {Object.keys(nonHighlightedPlayers)?.map((playerId) => {
           const { url, muted, playing } = nonHighlightedPlayers[playerId];
           return (

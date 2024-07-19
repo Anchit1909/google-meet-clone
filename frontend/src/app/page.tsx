@@ -1,55 +1,21 @@
-"use client";
-
-import { useState, ChangeEvent } from "react";
-import { useRouter } from "next/navigation";
-import { v4 as uuidv4 } from "uuid";
+import HomePage from "@/components/HomePage/HomePage";
+import Footer from "@/components/Navigation/Footer";
 
 export default function Home() {
-  const router = useRouter();
-  const [roomId, setRoomId] = useState<string>("");
-
-  const createAndJoin = () => {
-    const roomId = uuidv4();
-    router.push(`/${roomId}`);
-  };
-
-  const joinRoom = () => {
-    if (roomId) router.push(`/${roomId}`);
-    else {
-      alert("Please provide a valid room id");
-    }
-  };
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setRoomId(e.target.value);
-  };
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="w-4/12 mx-auto p-2 border border-white rounded mt-8 text-white flex flex-col items-center">
-        <h1 className="text-xl text-center">Google Meet Clone</h1>
-        <div className="flex flex-col items-center mt-3 w-full">
-          <input
-            placeholder="Enter Room ID"
-            value={roomId}
-            onChange={handleInputChange}
-            className="text-black text-lg p-1 rounded w-9/12 mb-3"
-          />
-          <button
-            onClick={joinRoom}
-            className="bg-buttonPrimary py-2 px-4 rounded"
-          >
-            Join Room
-          </button>
+    <>
+      <main className="mx-auto w-full max-w-screen-lg px-2.5 md:px-20 py-16">
+        <div className="flex justify-center items-center flex-col space-y-8">
+          <div className="text-4xl max-w-lg flex flex-col items-center justify-center font-semibold font-poppins space-y-1">
+            <span className="text-center">Meet Smarter, Work Better</span>
+            <span className="block bg-gradient-to-r from-rose-500 to-red-500 bg-clip-text text-transparent">
+              MeetSync
+            </span>
+          </div>
+          <HomePage />
         </div>
-        <span className="my-3 text-xl">--------------- OR ---------------</span>
-        <button
-          onClick={createAndJoin}
-          className="bg-buttonPrimary py-2 px-4 rounded"
-        >
-          Create a new room
-        </button>
-      </div>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 }
