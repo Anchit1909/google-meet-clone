@@ -31,11 +31,8 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const connection = new (io as any)(process.env.BACKEND_URL, {
+    const connection = new (io as any)(process.env.NEXT_PUBLIC_BACKEND_URL, {
       withCredentials: true,
-      extraHeaders: {
-        "my-custom-header": "abcd",
-      },
     });
     console.log("socket connection", connection);
     setSocket(connection);

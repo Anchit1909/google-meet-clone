@@ -26,7 +26,6 @@ interface Users {
 
 const Room = ({ params }: { params: { roomId: string } }) => {
   const socket = useSocket();
-  // const { query } = useRouter();
   const roomId = params.roomId as string;
   const { peer, myId } = usePeer();
   const { stream } = useMediaStream();
@@ -72,7 +71,7 @@ const Room = ({ params }: { params: { roomId: string } }) => {
     return () => {
       socket.off("user-connected", handleUserConnected);
     };
-  }, [peer, setPlayers, socket, stream]);
+  }, [socket, peer, stream, setPlayers]);
 
   useEffect(() => {
     if (!socket) return;
@@ -102,9 +101,11 @@ const Room = ({ params }: { params: { roomId: string } }) => {
     const handleUserLeave = (userId: string) => {
       console.log(`user ${userId} is leaving the room`);
       users[userId]?.close();
-      const playersCopy = cloneDeep(players);
-      delete playersCopy[userId];
-      setPlayers(playersCopy);
+      setPlayers((prev: any) => {
+        const copy = cloneDeep(prev);
+        delete copy[userId];
+        return { ...copy };
+      });
     };
 
     socket.on("user-toggle-audio", handleToggleAudio);
@@ -116,7 +117,7 @@ const Room = ({ params }: { params: { roomId: string } }) => {
       socket.off("user-toggle-video", handleToggleVideo);
       socket.off("user-leave", handleUserLeave);
     };
-  }, [players, setPlayers, socket, users]);
+  }, [socket, setPlayers, users]);
 
   useEffect(() => {
     if (!peer || !stream) return;
@@ -142,7 +143,7 @@ const Room = ({ params }: { params: { roomId: string } }) => {
         }));
       });
     });
-  }, [peer, setPlayers, stream]);
+  }, [peer, stream, setPlayers]);
 
   useEffect(() => {
     if (!stream || !myId) return;
@@ -155,22 +156,22 @@ const Room = ({ params }: { params: { roomId: string } }) => {
         playing: true,
       },
     }));
-  }, [myId, setPlayers, stream]);
+  }, [myId, stream, setPlayers]);
 
   return (
     <>
       <div className="absolute w-9/12 left-0 right-0 mx-auto top-5 bottom-12 h-[calc(100vh-7rem)]">
         {playerHighlighted && (
           <Player
-            url={playerHighlighted.url}
-            muted={playerHighlighted.muted}
-            playing={playerHighlighted.playing}
+            url={playerHighlighted?.url}
+            muted={playerHighlighted?.muted}
+            playing={playerHighlighted?.playing}
             isActive
           />
         )}
       </div>
       <div className="absolute flex flex-col overflow-y-auto w-[200px] h-[calc(100vh-20px)] right-5 top-5">
-        {Object.keys(nonHighlightedPlayers).map((playerId) => {
+        {Object.keys(nonHighlightedPlayers)?.map((playerId) => {
           const { url, muted, playing } = nonHighlightedPlayers[playerId];
           return (
             <Player
