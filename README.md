@@ -23,7 +23,7 @@
 
 ## Introduction
 
-Meetsync is a real-time video conferencing application that facilitates seamless virtual meetings. It uses Socket.IO for real-time signaling and PeerJS for direct peer-to-peer connections. The frontend is built using Next.js, Tailwind CSS and ShadCN UI. The backend is built using Nodejs and Express.
+Meetsync is a real-time video conferencing application that facilitates seamless virtual meetings. It uses Socket.IO for real-time signaling and PeerJS for direct peer-to-peer connections. The frontend is built using Next.js, Tailwind CSS and ShadCN UI. The backend is built using Nodejs and Express. The application is deployed on Digital Ocean VM.
 
 ## Tech Stack
 
